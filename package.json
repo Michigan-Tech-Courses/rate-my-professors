@@ -3,13 +3,14 @@
   "keywords": ["🧑‍🏫", "ratemyprofessors", "professors", "scrape", "api", "graphql", "rate"],
   "version": "0.1.0",
   "description": "a basic wrapper for Rate My Professors's GraphQL API.",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
+  "types": "dts/src/index.d.ts",
   "repository": "git@github.com:Michigan-Tech-Courses/rate-my-professors",
   "author": "Max Isom <hi@maxisom.me>",
   "license": "MIT",
   "files": [
-    "dist",
-    "dts"
+    "dist/src",
+    "dts/src"
   ],
   "scripts": {
     "lint": "eslint 'src/**/*.ts'",

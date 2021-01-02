@@ -2,7 +2,7 @@ data
 .DS_Store
 dist
 dts
-dev.ts
+dev.js
 
 # Logs
 logs
