@@ -1,9 +1,10 @@
 {
-  "name": "",
+  "name": "@mtucourses/rate-my-professors",
+  "keywords": ["🧑‍🏫", "ratemyprofessors", "professors", "scrape", "api", "graphql", "rate"],
   "version": "0.1.0",
-  "description": "",
+  "description": "a basic wrapper for Rate My Professors's GraphQL API.",
   "main": "dist/index.js",
-  "repository": "git@github.com:codetheweb/",
+  "repository": "git@github.com:Michigan-Tech-Courses/rate-my-professors",
   "author": "Max Isom <hi@maxisom.me>",
   "license": "MIT",
   "files": [
@@ -19,8 +20,7 @@
     "test": "ava",
     "test:watch": "ava --watch",
     "prepack": "yarn clean && yarn build",
-    "start": "node dist/index.js",
-    "dev": "nodemon"
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^14.14.19",
@@ -66,6 +66,9 @@
     "graphql-request": "^3.4.0"
   },
   "ava": {
+    "files": [
+      "test/**/*"
+    ],
 		"extensions": [
 			"ts"
 		],
