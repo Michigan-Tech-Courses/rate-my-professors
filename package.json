@@ -29,7 +29,6 @@
     "eslint-config-xo-typescript": "^0.37.0",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
-    "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
@@ -59,5 +58,8 @@
       "eslint 'src/**/*.ts' --fix"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.4.0"
+  }
 }
