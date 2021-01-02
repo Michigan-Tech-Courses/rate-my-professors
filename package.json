@@ -1,7 +1,15 @@
 {
   "name": "@mtucourses/rate-my-professors",
-  "keywords": ["🧑‍🏫", "ratemyprofessors", "professors", "scrape", "api", "graphql", "rate"],
-  "version": "0.1.0",
+  "keywords": [
+    "🧑‍🏫",
+    "ratemyprofessors",
+    "professors",
+    "scrape",
+    "api",
+    "graphql",
+    "rate"
+  ],
+  "version": "1.0.0",
   "description": "a basic wrapper for Rate My Professors's GraphQL API.",
   "main": "dist/src/index.js",
   "types": "dts/src/index.d.ts",
@@ -70,11 +78,11 @@
     "files": [
       "test/**/*"
     ],
-		"extensions": [
-			"ts"
-		],
-		"require": [
-			"ts-node/register"
-		]
-	}
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
 }
