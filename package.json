@@ -28,7 +28,7 @@
     "build:watch": "tsc --watch",
     "test": "ava",
     "test:watch": "ava --watch",
-    "test:coverage": "nyc ava",
+    "test:coverage": "nyc --reporter=lcov ava",
     "prepack": "yarn clean && yarn build",
     "start": "node dist/index.js"
   },
