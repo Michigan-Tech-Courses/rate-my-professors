@@ -10,7 +10,7 @@
     "rate"
   ],
   "version": "1.0.0",
-  "description": "a basic wrapper for Rate My Professors's GraphQL API.",
+  "description": "a basic wrapper for Rate My Professors's GraphQL API",
   "main": "dist/src/index.js",
   "types": "dts/src/index.d.ts",
   "repository": "git@github.com:Michigan-Tech-Courses/rate-my-professors",
@@ -28,6 +28,7 @@
     "build:watch": "tsc --watch",
     "test": "ava",
     "test:watch": "ava --watch",
+    "test:coverage": "nyc ava",
     "prepack": "yarn clean && yarn build",
     "start": "node dist/index.js"
   },
@@ -72,7 +73,8 @@
   },
   "dependencies": {
     "graphql": "^15.4.0",
-    "graphql-request": "^3.4.0"
+    "graphql-request": "^3.4.0",
+    "nyc": "^15.1.0"
   },
   "ava": {
     "files": [
