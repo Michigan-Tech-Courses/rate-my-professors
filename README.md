@@ -53,6 +53,7 @@ import ratings from '@mtucourses/rate-my-professors';
     {
       avgDifficulty: 4.4,
       avgRating: 3.3,
+      numRatings: 28,
       department: 'Computer Science',
       firstName: 'Ching-Kuang',
       id: 'VGVhY2hlci0yMjkxNjI=',

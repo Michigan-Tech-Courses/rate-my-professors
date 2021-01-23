@@ -55,6 +55,7 @@ query TeacherRatingsPageQuery(
       avgDifficulty
       avgRating
       department
+      numRatings
     }
     id
   }

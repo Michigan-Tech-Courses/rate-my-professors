@@ -31,6 +31,7 @@ export interface ITeacherPage {
   lastName: string;
   avgDifficulty: number;
   avgRating: number;
+  numRatings: number;
   department: string;
   school: ISchoolFromSearch;
 }
