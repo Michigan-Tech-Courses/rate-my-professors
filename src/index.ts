@@ -1,5 +1,5 @@
 import {GraphQLClient} from 'graphql-request';
-import {autocompleteSchoolQuery, autocompleteTeacherQuery, getTeacherQuery} from './queries';
+import {autocompleteSchoolQuery, searchTeacherQuery, getTeacherQuery} from './queries';
 import {AUTH_TOKEN} from './constants';
 
 const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
@@ -42,10 +42,13 @@ const searchSchool = async (query: string): Promise<ISchoolFromSearch[]> => {
   return response.autocomplete.schools.edges.map((edge: { node: ISchoolFromSearch }) => edge.node);
 };
 
-const searchTeacher = async (query: string): Promise<ITeacherFromSearch[]> => {
-  const response = await client.request(autocompleteTeacherQuery, {query});
+const searchTeacher = async (name: string, schoolID: string): Promise<ITeacherFromSearch[]> => {
+  const response = await client.request(searchTeacherQuery, {
+    text: name,
+    schoolID
+  });
 
-  return response.autocomplete.teachers.edges.map((edge: { node: ITeacherFromSearch }) => edge.node);
+  return response.newSearch.teachers.edges.map((edge: { node: ITeacherFromSearch }) => edge.node);
 };
 
 const getTeacher = async (id: string): Promise<ITeacherPage> => {
@@ -55,4 +58,3 @@ const getTeacher = async (id: string): Promise<ITeacherPage> => {
 };
 
 export default {searchSchool, searchTeacher, getTeacher};
-

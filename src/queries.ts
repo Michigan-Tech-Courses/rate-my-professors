@@ -1,7 +1,9 @@
 import {gql} from 'graphql-request';
 
 export const autocompleteSchoolQuery = gql`
-query AutocompleteSearchQuery(\n  $query: String!\n)
+query AutocompleteSearchQuery(
+  $query: String!
+)
 {
   autocomplete(query: $query) {
     schools {
@@ -18,7 +20,9 @@ query AutocompleteSearchQuery(\n  $query: String!\n)
 }`;
 
 export const autocompleteTeacherQuery = gql`
-query AutocompleteSearchQuery(\n  $query: String!\n)
+query AutocompleteSearchQuery(
+  $query: String!
+)
 {
   autocomplete(query: $query) {
     teachers {
@@ -36,6 +40,28 @@ query AutocompleteSearchQuery(\n  $query: String!\n)
     }
   }
 }`;
+
+export const searchTeacherQuery = gql`
+query NewSearchTeachersQuery($text: String!, $schoolID: ID!)
+{
+  newSearch {
+    teachers(query: {text: $text, schoolID: $schoolID}) {
+      edges {
+        cursor
+        node {
+          id
+          firstName
+          lastName
+          school {
+            name
+            id
+          }
+        }
+      }
+    }
+  }
+}
+`;
 
 export const getTeacherQuery = gql`
 query TeacherRatingsPageQuery(

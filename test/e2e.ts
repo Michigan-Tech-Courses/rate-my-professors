@@ -1,6 +1,8 @@
 import test from 'ava';
 import ratings from '../src';
 
+const michiganTechID = 'U2Nob29sLTYwMg==';
+
 test('search for school', async t => {
   const schools = await ratings.searchSchool('michigan technological university');
 
@@ -14,13 +16,13 @@ test('search for non-existent school', async t => {
 });
 
 test('search for teacher', async t => {
-  const teachers = await ratings.searchTeacher('mtu shene');
+  const teachers = await ratings.searchTeacher('shene', michiganTechID);
 
   t.snapshot(teachers);
 });
 
 test('search for non-existent teacher', async t => {
-  const teachers = await ratings.searchTeacher('this teacher does not exist');
+  const teachers = await ratings.searchTeacher('this teacher does not exist', michiganTechID);
 
   t.is(teachers.length, 0);
 });
@@ -35,4 +37,3 @@ test('get details of teacher', async t => {
 test('get details with invalid ID', async t => {
   await t.throwsAsync(ratings.getTeacher('VGVhY2hlci1udWxs'));
 });
-
