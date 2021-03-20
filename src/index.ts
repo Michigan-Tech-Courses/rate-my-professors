@@ -48,6 +48,10 @@ const searchTeacher = async (name: string, schoolID: string): Promise<ITeacherFr
     schoolID
   });
 
+  if (response.newSearch.teachers === null) {
+    return [];
+  }
+
   return response.newSearch.teachers.edges.map((edge: { node: ITeacherFromSearch }) => edge.node);
 };
 
