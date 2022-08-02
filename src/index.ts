@@ -34,6 +34,7 @@ export interface ITeacherPage {
   numRatings: number;
   department: string;
   school: ISchoolFromSearch;
+  legacyId: number;
 }
 
 const searchSchool = async (query: string): Promise<ISchoolFromSearch[]> => {

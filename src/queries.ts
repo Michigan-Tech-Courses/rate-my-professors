@@ -82,6 +82,7 @@ query TeacherRatingsPageQuery(
       avgRating
       department
       numRatings
+      legacyId
     }
     id
   }
