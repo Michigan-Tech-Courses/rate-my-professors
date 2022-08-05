@@ -63,7 +63,8 @@ import ratings from '@mtucourses/rate-my-professors';
         id: 'U2Nob29sLTYwMg==',
         name: 'Michigan Technological University',
         state: 'MI'
-      }
+      },
+      legacyId: 1234567
     }
   */
 })();
