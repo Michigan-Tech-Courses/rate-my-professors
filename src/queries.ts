@@ -83,6 +83,7 @@ query TeacherRatingsPageQuery(
       department
       numRatings
       legacyId
+      wouldTakeAgainPercent
     }
     id
   }
