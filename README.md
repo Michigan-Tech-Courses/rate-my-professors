@@ -2,92 +2,91 @@
 
 [![codecov](https://codecov.io/gh/Michigan-Tech-Courses/rate-my-professors/branch/master/graph/badge.svg?token=YSBV5T5GVY)](https://codecov.io/gh/Michigan-Tech-Courses/rate-my-professors)
 
-A basic wrapper for Rate My Professors's GraphQL API. Includes TypeScript definitions.
+A basic wrapper for Rate My Professors' GraphQL API, including TypeScript definitions. This package retrieves school and professor information with capabilities to retrieve detailed ratings of professors.
 
-It is possible to pull full ratings with content as well, but currently this package just returns the average.
+## 🚀 Getting Started
 
-## 🏗 Usage
+### Installation
+To install the package, run:
 
-```js
-// Change to 
+```bash
+npm install @mtucourses/rate-my-professors
+or
+yarn add @mtucourses/rate-my-professors // recommended
+or
+pnpm install @mtucourses/rate-my-professors
+```
+
+# Usage
+
+```ts
+// Use the following line if using JavaScript instead of TypeScript
 // const ratings = require('@mtucourses/rate-my-professors').default;
-// if using JS instead of TS
-import ratings from '@mtucourses/rate-my-professors';
+import ratings from "@mtucourses/rate-my-professors";
 
 (async () => {
-  const schools = await ratings.searchSchool('michigan technological university');
-
+  // Search for a school
+  const schools = await ratings.searchSchool(
+    "arizona state university"
+  );
   console.log(schools);
-  /*
-    [
-      {
-        city: 'Houghton',
-        id: 'U2Nob29sLTYwMg==',
-        name: 'Michigan Technological University',
-        state: 'MI'
-      }
-    ]
-  */
 
-  const teachers = await ratings.searchTeacher('mtu shene');
-
+  // Search for a teacher at a specific school
+  const teachers = await ratings.searchTeacher("steven osburn", "U2Nob29sLTEzNjQ3");
   console.log(teachers);
-  /*
-    [
-      {
-        firstName: 'Ching-Kuang',
-        id: 'VGVhY2hlci0yMjkxNjI=',
-        lastName: 'Shene',
-        school: {
-          id: 'U2Nob29sLTYwMg==',
-          name: 'Michigan Technological University'
-        }
-      }
-    ] 
-  */
 
-  const teacher = await ratings.getTeacher('VGVhY2hlci0yMjkxNjI=');
-
+  // Get detailed information about a teacher
+  const teacher = await ratings.getTeacher("VGVhY2hlci0yMzAwOTAw");
   console.log(teacher);
-  /*
-    {
-      avgDifficulty: 4.4,
-      avgRating: 3.3,
-      numRatings: 28,
-      department: 'Computer Science',
-      firstName: 'Ching-Kuang',
-      id: 'VGVhY2hlci0yMjkxNjI=',
-      lastName: 'Shene',
-      school: {
-        city: 'Houghton',
-        id: 'U2Nob29sLTYwMg==',
-        name: 'Michigan Technological University',
-        state: 'MI'
-      },
-      legacyId: 1234567
-    }
-  */
 })();
 ```
 
-## 🧰  Development
+# API
+
+### `searchSchool(searchQuery: string): Promise<School[]>`
+
+Searches for a school by its name.
+
+### `searchTeacher(searchQuery: string): Promise<Teacher[]>`
+
+Searches for a teacher by their name or school abbreviation.
+
+### `getTeacher(teacherId: string): Promise<TeacherDetails>`
+
+Retrieves detailed information about a teacher by their ID.
+
+# Development
+
+## Setup
 
 ```bash
-# First:
-# install dependencies
+# Install dependencies
 yarn install
+```
 
-# then:
-# build in watch mode
+## Build
+
+```bash
+# Build in watch mode
 yarn build:watch
+```
 
-# and you can:
+## Testing
 
-# run tests
+```bash
+# Run tests
 yarn test
 
-# run tests in watch mode
+# Run tests in watch mode
 yarn test:watch
 ```
 
-To publish a new package version, run `npm version [patch|minor|major]` and then `git push && git push --tags` on the master branch.
+# Contributors
+
+[codetheweb](https://github.com/codetheweb)
+
+[Leo6Leo](https://github.com/Leo6Leo)
+
+[patrickdemers6](https://github.com/patrickdemers6)
+
+[spabolu](https://github.com/spabolu)
