@@ -1,8 +1,12 @@
 import {GraphQLClient} from 'graphql-request';
-import {autocompleteSchoolQuery, searchTeacherQuery, getTeacherQuery} from './queries';
+import {
+  autocompleteSchoolQuery,
+  searchTeacherQuery,
+  getTeacherQuery
+} from './queries';
 import {AUTH_TOKEN} from './constants';
 
-const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
+const client = new GraphQLClient('/graphql', {
   headers: {
     authorization: `Basic ${AUTH_TOKEN}`
   }
@@ -35,31 +39,69 @@ export interface ITeacherPage {
   department: string;
   school: ISchoolFromSearch;
   legacyId: number;
+  wouldTakeAgainPercent: number;
 }
 
-const searchSchool = async (query: string): Promise<ISchoolFromSearch[]> => {
-  const response = await client.request(autocompleteSchoolQuery, {query});
+export const searchSchool = async (
+  query: string
+): Promise<ISchoolFromSearch[]> => {
+  try {
+    const response = await client.request(autocompleteSchoolQuery, {query});
 
-  return response.autocomplete.schools.edges.map((edge: { node: ISchoolFromSearch }) => edge.node);
-};
+    return response.autocomplete.schools.edges.map(
+      (edge: { node: ISchoolFromSearch }) => edge.node
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error in searchSchool:', error.message);
+    }
 
-const searchTeacher = async (name: string, schoolID: string): Promise<ITeacherFromSearch[]> => {
-  const response = await client.request(searchTeacherQuery, {
-    text: name,
-    schoolID
-  });
-
-  if (response.newSearch.teachers === null) {
-    return [];
+    return Promise.reject(error);
   }
-
-  return response.newSearch.teachers.edges.map((edge: { node: ITeacherFromSearch }) => edge.node);
 };
 
-const getTeacher = async (id: string): Promise<ITeacherPage> => {
-  const response = await client.request(getTeacherQuery, {id});
+export const searchTeacher = async (
+  name: string,
+  schoolID: string
+): Promise<ITeacherFromSearch[]> => {
+  try {
+    const response = await client.request(searchTeacherQuery, {
+      text: name,
+      schoolID
+    });
 
-  return response.node;
+    if (response.newSearch.teachers === null) {
+      return [];
+    }
+
+    return response.newSearch.teachers.edges.map(
+      (edge: { node: ITeacherFromSearch }) => edge.node
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error in searchTeacher:', error.message);
+    } else {
+      console.error('Error in searchTeacher:', error);
+    }
+
+    return Promise.reject(error);
+  }
+};
+
+export const getTeacher = async (id: string): Promise<ITeacherPage> => {
+  try {
+    const response = await client.request(getTeacherQuery, {id});
+
+    return response.node;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Error in getTeacher:', error.message);
+    } else {
+      console.error('Error in getTeacher:', error);
+    }
+
+    return Promise.reject(error);
+  }
 };
 
 export default {searchSchool, searchTeacher, getTeacher};
