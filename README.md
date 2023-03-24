@@ -7,12 +7,11 @@ A basic wrapper for Rate My Professors' GraphQL API, including TypeScript defini
 ## 🚀 Getting Started
 
 ### Installation
+
 To install the package, run:
 
 ```bash
 npm install @mtucourses/rate-my-professors
-or
-yarn add @mtucourses/rate-my-professors // recommended
 or
 pnpm install @mtucourses/rate-my-professors
 ```
@@ -26,18 +25,63 @@ import ratings from "@mtucourses/rate-my-professors";
 
 (async () => {
   // Search for a school
-  const schools = await ratings.searchSchool(
-    "arizona state university"
-  );
-  console.log(schools);
+  const schools = await ratings.searchSchool("arizona state university");
+  /*
+  [
+    ...response truncated for brevity
+    {
+      city: '',
+      id: 'U2Nob29sLTEzNjQ3',
+      name: 'Arizona State University',
+      state: ''
+    },
+    {
+      city: 'Tucson',
+      id: 'U2Nob29sLTE1NzIz',
+      name: 'Arizona State University',
+      state: 'AZ'
+    },
+    ...response truncated for brevity
+  ]
+  */
 
   // Search for a teacher at a specific school
-  const teachers = await ratings.searchTeacher("steven osburn", "U2Nob29sLTEzNjQ3");
-  console.log(teachers);
+  const teachers = await ratings.searchTeacher(
+    "steven osburn",
+    "U2Nob29sLTEzNjQ3"
+  );
+  /*
+  [
+    {
+      firstName: 'Steven',
+      id: 'VGVhY2hlci0yMzAwOTAw',
+      lastName: 'Osburn',
+      school: { id: 'U2Nob29sLTEzNjQ3', name: 'Arizona State University' }
+    }
+  ]
+  */
 
   // Get detailed information about a teacher
   const teacher = await ratings.getTeacher("VGVhY2hlci0yMzAwOTAw");
-  console.log(teacher);
+  /*
+  {
+    avgDifficulty: 2.5,
+    avgRating: 4.3,
+    department: 'Engineering',
+    firstName: 'Steven',
+    id: 'VGVhY2hlci0yMzAwOTAw',
+    lastName: 'Osburn',
+    legacyId: 2300900,
+    numRatings: 79,
+    school: {
+      city: '',
+      id: 'U2Nob29sLTEzNjQ3',
+      name: 'Arizona State University',
+      state: ''
+    },
+    wouldTakeAgainPercent: 88.8889
+  }
+  */
 })();
 ```
 

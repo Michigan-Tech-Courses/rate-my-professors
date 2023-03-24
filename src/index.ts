@@ -6,7 +6,7 @@ import {
 } from './queries';
 import {AUTH_TOKEN} from './constants';
 
-const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
+const client = new GraphQLClient('/graphql', {
   headers: {
     authorization: `Basic ${AUTH_TOKEN}`
   }
@@ -54,11 +54,9 @@ export const searchSchool = async (
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error('Error in searchSchool:', error.message);
-    } else {
-      console.error('Error in searchSchool:', error);
     }
 
-    return [];
+    return Promise.reject(error);
   }
 };
 
@@ -86,7 +84,7 @@ export const searchTeacher = async (
       console.error('Error in searchTeacher:', error);
     }
 
-    return [];
+    return Promise.reject(error);
   }
 };
 
@@ -102,7 +100,7 @@ export const getTeacher = async (id: string): Promise<ITeacherPage> => {
       console.error('Error in getTeacher:', error);
     }
 
-    throw error;
+    return Promise.reject(error);
   }
 };
 

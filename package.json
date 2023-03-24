@@ -48,6 +48,8 @@
     "rate",
     "ratemyprofessors",
     "scrape",
+    "professor_rating",
+    "ratings",
     "🧑‍🏫"
   ],
   "ava": {
@@ -86,5 +88,6 @@
     "*.{js,ts,tsx}": [
       "eslint 'src/**/*.ts' --fix"
     ]
-  }
+  },
+  "proxy": "https://www.ratemyprofessors.com"
 }
