@@ -105,24 +105,24 @@ Retrieves detailed information about a teacher by their ID.
 
 ```bash
 # Install dependencies
-yarn install
+npm install
 ```
 
 ## Build
 
 ```bash
 # Build in watch mode
-yarn build:watch
+npm run build:watch
 ```
 
 ## Testing
 
 ```bash
 # Run tests
-yarn test
+npm test
 
 # Run tests in watch mode
-yarn test:watch
+npm run test:watch
 ```
 
 # Contributors
