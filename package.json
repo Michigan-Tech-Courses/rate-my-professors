@@ -73,10 +73,8 @@
     ]
   },
   "dependencies": {
-    "@types/isomorphic-fetch": "^0.0.36",
     "graphql": "^15.4.0",
-    "graphql-request": "^3.4.0",
-    "isomorphic-fetch": "^3.0.0"
+    "graphql-request": "^3.4.0"
   },
   "ava": {
     "files": [
