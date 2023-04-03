@@ -1,5 +1,5 @@
 import {GraphQLClient} from 'graphql-request';
-import fetch from 'isomorphic-fetch';
+import {fetch as crossFetch} from 'cross-fetch';
 import {autocompleteSchoolQuery, searchTeacherQuery, getTeacherQuery} from './queries';
 import {AUTH_TOKEN} from './constants';
 
@@ -7,7 +7,7 @@ const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
   headers: {
     authorization: `Basic ${AUTH_TOKEN}`
   },
-  fetch
+  fetch: globalThis.fetch ?? crossFetch
 });
 
 export interface ISchoolFromSearch {
