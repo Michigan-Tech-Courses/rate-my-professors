@@ -1,5 +1,5 @@
 {
-  "name": "@mtucourses/rate-my-professors",
+  "name": "@njerig/rate-my-professors",
   "keywords": [
     "🧑‍🏫",
     "ratemyprofessors",
@@ -9,12 +9,12 @@
     "graphql",
     "rate"
   ],
-  "version": "2.2.1",
+  "version": "0.1.0",
   "description": "a basic wrapper for Rate My Professors's GraphQL API",
   "main": "dist/src/index.js",
   "types": "dts/src/index.d.ts",
-  "repository": "git@github.com:Michigan-Tech-Courses/rate-my-professors",
-  "author": "Max Isom <hi@maxisom.me>",
+  "repository": "git@github.com:njerig/rate-my-professors",
+  "author": "Njeri Gachoka <njeri@gachoka.org>",
   "license": "MIT",
   "files": [
     "dist/src",
