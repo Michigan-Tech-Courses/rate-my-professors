@@ -32,25 +32,52 @@ export interface ITeacherPage {
   legacyId: number;
 }
 
+interface ISearchSchoolResponse {
+  autocomplete: {
+    schools: {
+      edges: Array<{ node: ISchoolFromSearch }>;
+    };
+  };
+}
+
+interface ISearchTeacherResponse {
+  newSearch: {
+    teachers: {
+      edges: Array<{ node: ITeacherFromSearch }>;
+    } | null;
+  };
+}
+
+interface IGetTeacherResponse {
+  node: ITeacherPage;
+}
+
 const createRmpClient = (timeout = 5000) => {
   const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
     headers: {
       authorization: `Basic ${AUTH_TOKEN}`
     },
-    fetch: globalThis.fetch ?? crossFetch,
-    timeout
+    fetch: fetch ?? crossFetch
   });
 
   const searchSchool = async (query: string): Promise<ISchoolFromSearch[]> => {
-    const response = await client.request(autocompleteSchoolQuery, {query});
+    const response: ISearchSchoolResponse = await client.request({
+      document: autocompleteSchoolQuery,
+      variables: {query},
+      signal: AbortSignal.timeout(timeout)
+    });
 
     return response.autocomplete.schools.edges.map((edge: { node: ISchoolFromSearch }) => edge.node);
   };
 
   const searchTeacher = async (name: string, schoolID: string): Promise<ITeacherFromSearch[]> => {
-    const response = await client.request(searchTeacherQuery, {
-      text: name,
-      schoolID
+    const response: ISearchTeacherResponse = await client.request({
+      document: searchTeacherQuery,
+      variables: {
+        text: name,
+        schoolID
+      },
+      signal: AbortSignal.timeout(timeout)
     });
 
     if (response.newSearch.teachers === null) {
@@ -61,7 +88,11 @@ const createRmpClient = (timeout = 5000) => {
   };
 
   const getTeacher = async (id: string): Promise<ITeacherPage> => {
-    const response = await client.request(getTeacherQuery, {id});
+    const response: IGetTeacherResponse = await client.request({
+      document: getTeacherQuery,
+      variables: {id},
+      signal: AbortSignal.timeout(timeout)
+    });
 
     return response.node;
   };

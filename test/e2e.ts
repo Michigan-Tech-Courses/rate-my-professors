@@ -2,7 +2,7 @@ import test from 'ava';
 import createRmpClient from '../src';
 
 const michiganTechID = 'U2Nob29sLTYwMg==';
-const ratings = createRmpClient(10000);
+const ratings = createRmpClient(120000);
 
 test('search for school', async t => {
   const schools = await ratings.searchSchool('michigan technological university');
