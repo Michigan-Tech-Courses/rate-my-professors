@@ -1,4 +1,4 @@
-# 🧑‍🏫 @mtucourses/rate-my-professors
+# 🧑‍🏫 @njerig/rate-my-professors
 
 [![codecov](https://codecov.io/gh/Michigan-Tech-Courses/rate-my-professors/branch/master/graph/badge.svg?token=YSBV5T5GVY)](https://codecov.io/gh/Michigan-Tech-Courses/rate-my-professors)
 
@@ -12,9 +12,10 @@ It is possible to pull full ratings with content as well, but currently this pac
 // Change to 
 // const ratings = require('@mtucourses/rate-my-professors').default;
 // if using JS instead of TS
-import ratings from '@mtucourses/rate-my-professors';
+import createRmpClient from '@njerig/rate-my-professors';
 
 (async () => {
+  const ratings = createRmpClient(10000) // timeout = 10s
   const schools = await ratings.searchSchool('michigan technological university');
 
   console.log(schools);
