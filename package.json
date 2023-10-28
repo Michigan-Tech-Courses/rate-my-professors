@@ -9,7 +9,7 @@
     "graphql",
     "rate"
   ],
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "a basic wrapper for Rate My Professors's GraphQL API",
   "main": "dist/src/index.js",
   "types": "dts/src/index.d.ts",
