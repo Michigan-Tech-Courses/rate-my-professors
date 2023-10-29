@@ -52,7 +52,13 @@ interface IGetTeacherResponse {
   node: ITeacherPage;
 }
 
-const createRmpClient = (timeout = 5000) => {
+interface ILibraryFunctions {
+  searchSchool: (query: string) => Promise<ISchoolFromSearch[]>;
+  searchTeacher: (name: string, schoolID: string) => Promise<ITeacherFromSearch[]>;
+  getTeacher: (id: string) => Promise<ITeacherPage>;
+}
+
+const createRmpClient = (timeout = 5000): ILibraryFunctions => {
   const client = new GraphQLClient('https://www.ratemyprofessors.com/graphql', {
     headers: {
       authorization: `Basic ${AUTH_TOKEN}`
@@ -61,23 +67,35 @@ const createRmpClient = (timeout = 5000) => {
   });
 
   const searchSchool = async (query: string): Promise<ISchoolFromSearch[]> => {
+    const controller = new AbortController();
+    const {signal} = controller;
+    setTimeout(() => {
+      controller.abort();
+    }, timeout);
+
     const response: ISearchSchoolResponse = await client.request({
       document: autocompleteSchoolQuery,
       variables: {query},
-      signal: AbortSignal.timeout(timeout)
+      signal
     });
 
     return response.autocomplete.schools.edges.map((edge: { node: ISchoolFromSearch }) => edge.node);
   };
 
   const searchTeacher = async (name: string, schoolID: string): Promise<ITeacherFromSearch[]> => {
+    const controller = new AbortController();
+    const {signal} = controller;
+    setTimeout(() => {
+      controller.abort();
+    }, timeout);
+
     const response: ISearchTeacherResponse = await client.request({
       document: searchTeacherQuery,
       variables: {
         text: name,
         schoolID
       },
-      signal: AbortSignal.timeout(timeout)
+      signal
     });
 
     if (response.newSearch.teachers === null) {
@@ -88,10 +106,16 @@ const createRmpClient = (timeout = 5000) => {
   };
 
   const getTeacher = async (id: string): Promise<ITeacherPage> => {
+    const controller = new AbortController();
+    const {signal} = controller;
+    setTimeout(() => {
+      controller.abort();
+    }, timeout);
+
     const response: IGetTeacherResponse = await client.request({
       document: getTeacherQuery,
       variables: {id},
-      signal: AbortSignal.timeout(timeout)
+      signal
     });
 
     return response.node;
