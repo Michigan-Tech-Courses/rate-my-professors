@@ -2,7 +2,8 @@ import test from 'ava';
 import createRmpClient from '../src';
 
 const michiganTechID = 'U2Nob29sLTYwMg==';
-const ratings = createRmpClient(120000);
+const smcID = 'U2Nob29sLTEzNzE=';
+const ratings = createRmpClient(10000);
 
 test('search for school', async t => {
   const schools = await ratings.searchSchool('michigan technological university');
@@ -37,4 +38,10 @@ test('get details of teacher', async t => {
 
 test('get details with invalid ID', async t => {
   await t.throwsAsync(ratings.getTeacher('VGVhY2hlci1udWxs'));
+});
+
+test('get departments', async t => {
+  const departments = await ratings.getDepartments(smcID);
+
+  t.true(departments.some(department => department.value === 'mathematics'));
 });
