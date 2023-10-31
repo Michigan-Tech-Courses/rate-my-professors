@@ -45,3 +45,10 @@ test('get departments', async t => {
 
   t.true(departments.some(department => department.value === 'mathematics'));
 });
+
+test('get teachers by department', async t => {
+  const mathDeptID = 'RGVwYXJ0bWVudC0zOA==';
+  const mathTeachers = await ratings.getTeachersByDepartment(smcID, mathDeptID);
+
+  t.true(mathTeachers.some(teacher => teacher.firstName === 'Hafedh' && teacher.lastName === 'Herichi'));
+});

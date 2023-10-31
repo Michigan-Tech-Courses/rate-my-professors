@@ -105,6 +105,7 @@ interface ILibraryFunctions {
   searchTeacher: (name: string, schoolID: string) => Promise<ITeacherFromSearch[]>;
   getTeacher: (id: string) => Promise<ITeacherPage>;
   getDepartments: (schoolID: string) => Promise<IFilterOption[]>;
+  getTeachersByDepartment: (schoolID: string, departmentID: string) => Promise<ITeacherNode[]>;
 }
 
 const createRmpClient = (timeout = 5000): ILibraryFunctions => {
@@ -204,7 +205,36 @@ const createRmpClient = (timeout = 5000): ILibraryFunctions => {
     return departmentFilter.options;
   };
 
-  return {searchSchool, searchTeacher, getTeacher, getDepartments};
+  const getTeachersByDepartment = async (schoolID: string, departmentID: string): Promise<ITeacherNode[]> => {
+    let teachers: ITeacherNode[] = [];
+    let hasNextPage = false;
+    let endCursor: string | null = null;
+
+    do {
+      // eslint-disable-next-line no-await-in-loop
+      const response: ITeachersByDepartmentPage = await client.request({
+        document: getTeachersByDepartmentQuery,
+        variables: {
+          query: {
+            departmentID,
+            schoolID,
+            fallback: true,
+            text: ''
+          },
+          count: 8,
+          cursor: endCursor ?? ''
+        }
+      });
+
+      teachers = [...teachers, ...response.search.teachers.edges.map(edge => edge.node)];
+      hasNextPage = response.search.teachers.pageInfo.hasNextPage;
+      endCursor = response.search.teachers.pageInfo.endCursor;
+    } while (hasNextPage);
+
+    return teachers;
+  };
+
+  return {searchSchool, searchTeacher, getTeacher, getDepartments, getTeachersByDepartment};
 };
 
 export default createRmpClient;
